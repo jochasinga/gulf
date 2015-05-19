@@ -48,8 +48,8 @@ type Status int
  	"On Airbnb",
  }
 
- func (status Status) String() string {
- 	return statuses[status]
+ func (s Status) String() string {
+ 	return statuses[s]
  }
 
  type House struct {

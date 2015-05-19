@@ -71,6 +71,7 @@ func Create(h House) {
 	// Set house's Id
 	h.Id = currentHouseId
 
+
 	// Save to data slice
 	houses = append(houses, h)
 }
