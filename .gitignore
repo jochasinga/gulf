@@ -23,6 +23,7 @@ _testmain.go
 *.test
 *.prof
 
-# backup files
+# backup files and editor-related
 *~
 *#
+Icon*

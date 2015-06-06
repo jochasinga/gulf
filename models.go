@@ -1,116 +1,70 @@
-package main 
+/*
+ * A (haunted) house should contain...
+ *
+ * Id			int
+ * Address	    string
+ * City			string
+ * State		string
+ * Zipcode		int
+ * Built		Time
+ * Owner		Owner
+ * Status		Status
+ * Detail		string
+ *
+ * 
+ * An Owner should contain...
+ * Firstname	string
+ * Lastname		string
+ *
+ * A Status should contain...
+ * "for rent"	string
+ * "for sale"	string
+ * "unknown"	string
+ *
+ */
 
+package main
+
+/*
 import (
 	"time"
 )
+*/
 
-var currentHouseId int
+type Status int
 
-// Populate database with mock data
-func init() {
+// Enum for status
+const (
+	Unknown Status = iota
+	Sale
+	Rent 	
+	Airbnb 	
+)
 
-	mockhouses := [...]House{
-
-		House{
-			Address: "5873 Delaware Avenue",
-			City: "Lady Lake",
-			State: "FL",
-			Zipcode: "32159",
-			Built: time.Now().Year() - 60,
-			Owner: Owner{ "John", "Jones", },
-			Status: Sale,
-			Detail: "Just another haunted house.",
-		},
-
-		House{
-			Address: "8352 Parker Street",
-			City: "Salisbury",
-			State: "MD", 
-			Zipcode: "21801",
-			Built: time.Now().Year() - 100,
-			Owner: Owner{ "Peter", "Miller", },
-			Status: Airbnb,
-			Detail: "A house with a ghost of soldier coming home.",
-		},
-
-		House{
-			Address: "2083 Country Club Drive",
-			City: "Leesburg", 
-			State: "VA", 
-			Zipcode: "20175", 
-			Built: time.Now().Year() - 40,
-			Owner: Owner{ "Mary", "Lyndel", },
-			Detail: "People spot a woman in black with candle at night.",
-		},
-
-		House{
-			Address: "9347 Surrey Lane",
-			City: "Apple Valley", 
-			State: "CA", 
-			Zipcode: "92307", 
-			Built: time.Now().Year() - 20,
-			Owner: Owner{ "Michael", "Powell", },
-			Detail: "An unrest crime scene of a massacre.",
-		},
-	}
-
-	for _, house := range mockhouses {
-		Create(house)
-	}
+var statuses = [...]string{
+	"Unknown",
+	"For Sale",
+	"For Rent",
+	"On Airbnb",
 }
 
-func FindAll() Houses {
-	return houses
+func (s Status) String() string {
+	return statuses[s]
 }
 
-func Create(h House) {
-
-	// Increment house's Id
-	currentHouseId += 1
-
-	// Set house's Id
-	h.Id = currentHouseId
-
-
-	// Save to data slice
-	houses = append(houses, h)
+type House struct {
+	Id		int			`json:"id"`
+	Address	string		`json:"address"`
+	City	string		`json:"city"`
+	State	string		`json:"state"`
+	Zipcode string		`json:"zipcode"`
+	Built	int			`json:"built"`
+	Owner	Owner		`json:"owner"`
+	Status	Status		`json:"status"`
+	Detail 	string		`json:"detail"`
 }
 
-func FindById(id int, houses Houses) House {
-	
-	var h House 
-
-	for _, house := range houses {
-		if house.Id == id {
-			return house 
-		}
-	}
-
-	return h
-}
-
-func FindByCity(city string, houses Houses) Houses {
-
-	var hs Houses 
-
-	for _, h := range houses {
-		if h.City == city {
-			hs = append(hs, h)
-		}
-	}
-
-	return hs 
-}
-
-func FindByState(state string) Houses {
-
-	var hs Houses
-
-	for _, h := range houses {
-		if h.State == state {
-			hs = append(hs, h)
-		}
-	}
-
-	return hs
+type Owner struct {
+	Firstname	string	`json:"firstname"`
+	Lastname	string	`json:"lastname"`
 }
