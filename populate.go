@@ -1,5 +1,7 @@
 package main 
 
+import "time"
+
 // Populate database with mock data
 func init() {
 

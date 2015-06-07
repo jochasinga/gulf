@@ -18,6 +18,8 @@
  * GET House(s) in a specific State
  * "/houses/state/:state"
  *
+ * GET the JSON as file
+ * "/houses.json"
  */
 
 package main
@@ -47,7 +49,7 @@ func Index(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 func HouseIndex(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 
  	// See model.go
- 	houses = FindAll()
+	houses = FindAll()
 
  	// Encode Go struct to JSON
  	if err := json.NewEncoder(w).Encode(houses); err != nil {
