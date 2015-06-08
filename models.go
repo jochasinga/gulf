@@ -5,7 +5,7 @@
  * Address	    string
  * City			string
  * State		string
- * Zipcode		int
+ * Zipcode		string
  * Built		Time
  * Owner		Owner
  * Status		Status
@@ -24,12 +24,6 @@
  */
 
 package main
-
-/*
-import (
-	"time"
-)
-*/
 
 type Status int
 

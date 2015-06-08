@@ -18,8 +18,6 @@
  * GET House(s) in a specific State
  * "/houses/state/:state"
  *
- * GET the JSON as file
- * "/houses.json"
  */
 
 package main
@@ -37,7 +35,7 @@ import (
     mux "github.com/julienschmidt/httprouter"
 )
 
-// This is the slice holding the data
+// This is the slice holding the data. Should belong to db.go
 var houses Houses
  	
 // Display a welcome message on home page
@@ -127,7 +125,6 @@ func HouseByState(w http.ResponseWriter, r *http.Request, ps mux.Params){
  		panic(err)
 	}
 }
-
 
 
 
