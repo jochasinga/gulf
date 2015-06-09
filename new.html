@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <title>New Haunted House</title>
+  </head>
+  <body>
+    <div class="text-center">
+      <h3>Post New Haunted House</h3>
+    </div>
+    <div class="container">
+      <div class="col-md-8 col-md-offset-2">
+        <form action="/success" method="POST">
+          <div class="form-group">
+            <label for="address">Street address</label>
+            <input name="address" type="text" class="form-control" id="address" placeholder="Enter address">
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input name="city" type="text" class="form-control" id="city" placeholder="Enter city">
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <input name="state" type="text" class="form-control" id="state" placeholder="Enter state abbreviation">
+          </div>
+          <div class="form-group">
+            <label for="zipcode">Zipcode</label>
+            <input name="zipcode" type="text" class="form-control" id="zipcode" placeholder="Enter zipcode">
+          </div>
+          <div class="form-group">
+            <label for="built">Year Built</label>
+            <input name="built" type="number" class="form-control" id="built" placeholder="Enter year built">
+          </div>
+          <div class="form-inline">
+            <div class="form-group">
+              <label for="owner">Owner</label><br />
+              <input name="firstname" type="text" class="form-control" id="firstname" placeholder="First name">
+              <input name="lastname" type="text" class="form-control" id="lastname" placeholder="Last name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select name="status" class="form-control">
+              <option>Unknown</option>
+              <option>For Rent</option>
+              <option>For Sale</option>
+              <option>On Airbnb</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="detail">Detail</label>
+            <textarea name="detail" class="form-control" rows="5" placeholder="Describe paranormal activity..."></textarea>
+          </div>
+          <div class="col-md-4 col-md-offset-4 text-center">
+            <button type="submit" class="btn btn-block btn-primary">POST</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

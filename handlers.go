@@ -24,7 +24,8 @@ package main
 
 import (
     "encoding/json"
-    "fmt"
+    //"fmt"
+    "html/template"
     "net/http"
     "io"
     "io/ioutil"
@@ -40,7 +41,23 @@ var houses Houses
  	
 // Display a welcome message on home page
 func Index(w http.ResponseWriter, r *http.Request, _ mux.Params) {
-	fmt.Fprintf(w, "<h1>Hello, welcome to Spooky.com</h1>")
+	title := "index"
+	p, err := loadPage(title)
+	if err != nil {
+		p = &Page{Title: title}
+	}
+	t, _ := template.ParseFiles(title + ".html")
+	t.Execute(w, p)
+}
+
+func HouseNew(w http.ResponseWriter, r *http.Request, _ mux.Params) {
+	title := "new"
+	p, err := loadPage(title)
+	if err != nil {
+		p = &Page{Title: title}
+	}
+	t, _ := template.ParseFiles(title + ".html")
+	t.Execute(w, p)
 }
 
 // Display all haunted houses
@@ -60,11 +77,13 @@ func HouseCreate(w http.ResponseWriter, r*http.Request, _ mux.Params) {
 	
 	var house House
 
+	// Read the request's body for new JSON data
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 	if err != nil {
 		panic(err)
 	}
 
+	// Replace with defer r.Body.Close()
 	if err := r.Body.Close(); err != nil {
 		panic(err)
 	}

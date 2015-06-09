@@ -29,10 +29,24 @@ var routes = Routes{
 	},
 
 	Route{
+		"GET",
+		"/new",
+		HouseNew,
+	},
+
+    Route{
+        "POST",
+        "/create",
+        HouseCreate,
+    }
+
+    /*
+	Route{
 		"POST",
 		"/houses",
 		HouseCreate,
 	},
+    */
 
 	Route{
 		"GET",
