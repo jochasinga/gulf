@@ -24,11 +24,11 @@ package main
 
 import (
     "encoding/json"
-    //"fmt"
+    "fmt"
     "html/template"
     "net/http"
-    "io"
-    "io/ioutil"
+    //"io"
+    //"io/ioutil"
     "strconv"
     "strings"
     //"time"
@@ -60,18 +60,31 @@ func HouseNew(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 	t.Execute(w, p)
 }
 
-// Display all haunted houses
-func HouseIndex(w http.ResponseWriter, r *http.Request, _ mux.Params) {
-
- 	// See model.go
-	houses = FindAll()
-
- 	// Encode Go struct to JSON
- 	if err := json.NewEncoder(w).Encode(houses); err != nil {
- 		panic(err)
-	}
+func HouseCreate(w http.ResponseWriter, r *http.Request, _ mux.Params) {
+    title := "new"
+    p, err := loadPage(title)
+    if err != nil {
+        p = &Page{Title: title}
+    }
+    fmt.Println("method:", r.Method)
+    if r.Method == "GET" {
+        t, _ := template.ParseFiles(title + ".html")
+        t.Execute(w, p)
+    } else {
+        r.ParseForm()
+        // logic part of the form
+        fmt.Println("address:", r.FormValue("address"))
+        fmt.Println("city:", r.FormValue("city"))
+        fmt.Println("state:", r.FormValue("state"))
+        fmt.Println("state:", r.FormValue("zipcode"))
+        fmt.Println("built in:", r.FormValue("built"))
+        fmt.Println("Owner:", r.FormValue("firstname"), r.FormValue("lastname"))
+        fmt.Println("Status:", r.FormValue("status"))
+        fmt.Println("Detail:", r.FormValue("detail"))
+    }
 }
 
+/*
 // Post new house here
 func HouseCreate(w http.ResponseWriter, r*http.Request, _ mux.Params) {
 	
@@ -101,6 +114,19 @@ func HouseCreate(w http.ResponseWriter, r*http.Request, _ mux.Params) {
 	Create(house)
 	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 	w.WriteHeader(http.StatusCreated)
+}
+*/
+
+// Display all haunted houses
+func HouseIndex(w http.ResponseWriter, r *http.Request, _ mux.Params) {
+
+    // See model.go
+    houses = FindAll()
+
+    // Encode Go struct to JSON
+    if err := json.NewEncoder(w).Encode(houses); err != nil {
+        panic(err)
+    }
 }
 
 func HouseById(w http.ResponseWriter, r *http.Request, ps mux.Params) {
