@@ -34,11 +34,11 @@ var routes = Routes{
 		HouseNew,
 	},
 
-    Route{
-        "POST",
-        "/create",
-        HouseCreate,
-    }
+    	Route{
+		"POST",
+		"/create",
+        	HouseCreate,
+    	},
 
     /*
 	Route{
