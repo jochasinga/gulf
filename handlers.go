@@ -81,7 +81,19 @@ func HouseCreate(w http.ResponseWriter, r *http.Request, _ mux.Params) {
         fmt.Println("Owner:", r.FormValue("firstname"), r.FormValue("lastname"))
         fmt.Println("Status:", r.FormValue("status"))
         fmt.Println("Detail:", r.FormValue("detail"))
+
+        http.Redirect(w, r, "/houses", http.StatusFound)
     }
+}
+
+func HouseCreateSuccess(w http.ResponseWriter, r *http.Request, _ mux.Params) {
+    title := "success"
+    p, err := loadPage(title)
+    if err != nil {
+        p = &Page{Title: title}
+    }
+    t, _ := template.ParseFiles(title + ".html")
+    t.Execute(w, p)
 }
 
 /*
