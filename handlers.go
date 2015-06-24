@@ -73,6 +73,7 @@ func HouseCreate(w http.ResponseWriter, r *http.Request, _ mux.Params) {
     } else {
         r.ParseForm()
         // logic part of the form
+        /*
         fmt.Println("address:", r.FormValue("address"))
         fmt.Println("city:", r.FormValue("city"))
         fmt.Println("state:", r.FormValue("state"))
@@ -81,6 +82,28 @@ func HouseCreate(w http.ResponseWriter, r *http.Request, _ mux.Params) {
         fmt.Println("Owner:", r.FormValue("firstname"), r.FormValue("lastname"))
         fmt.Println("Status:", r.FormValue("status"))
         fmt.Println("Detail:", r.FormValue("detail"))
+        */
+
+
+        for k, v := range r.Form {
+            fmt.Println(k, ":", v[0])
+        }
+
+        /*
+        data, err := json.Marshal(r.Form)
+        if err != nil {
+            panic(err)
+        }
+
+        fmt.Println(string(data))
+        */
+
+        /*
+        if err := Save(); err != nil {
+            panic(err)
+            http.Redirect(w, r, "/failed", http.StatusFound)
+        }
+        */
 
         http.Redirect(w, r, "/houses", http.StatusFound)
     }
