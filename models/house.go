@@ -1,29 +1,4 @@
-/*
- * A (haunted) house should contain...
- *
- * Id			int
- * Address	    string
- * City			string
- * State		string
- * Zipcode		string
- * Built		Time
- * Owner		Owner
- * Status		Status
- * Detail		string
- *
- * 
- * An Owner should contain...
- * Firstname	string
- * Lastname		string
- *
- * A Status should contain...
- * "for rent"	string
- * "for sale"	string
- * "unknown"	string
- *
- */
-
-package main
+package models
 
 type Status int
 
@@ -56,9 +31,4 @@ type House struct {
 	Owner	Owner		`json:"owner"`
 	Status	Status		`json:"status"`
 	Detail 	string		`json:"detail"`
-}
-
-type Owner struct {
-	Firstname	string	`json:"firstname"`
-	Lastname	string	`json:"lastname"`
 }
