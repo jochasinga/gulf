@@ -1,4 +1,4 @@
-package main 
+package views
 
 import (
     "io/ioutil"

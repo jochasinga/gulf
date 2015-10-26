@@ -20,7 +20,7 @@
  *
  */
 
-package main
+package controllers
 
 import (
     "encoding/json"
@@ -32,19 +32,20 @@ import (
     "strconv"
     "strings"
     //"time"
+	
+	"github.com/jochasinga/go-routing/db"
+	"github.com/jochasinga/go-routing/models"
+	"github.com/jochasinga/go-routing/views"
 
     mux "github.com/julienschmidt/httprouter"
 )
 
-// This is the slice holding the data. Should belong to db.go
-var houses Houses
- 	
 // Display a welcome message on home page
 func Index(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 	title := "index"
-	p, err := loadPage(title)
+	p, err := views.loadPage(title)
 	if err != nil {
-		p = &Page{Title: title}
+		p = &views.Page{Title: title}
 	}
 	t, _ := template.ParseFiles(title + ".html")
 	t.Execute(w, p)
@@ -52,9 +53,9 @@ func Index(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 
 func HouseNew(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 	title := "new"
-	p, err := loadPage(title)
+	p, err := views.loadPage(title)
 	if err != nil {
-		p = &Page{Title: title}
+		p = &views.Page{Title: title}
 	}
 	t, _ := template.ParseFiles(title + ".html")
 	t.Execute(w, p)
@@ -62,9 +63,9 @@ func HouseNew(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 
 func HouseCreate(w http.ResponseWriter, r *http.Request, _ mux.Params) {
     title := "new"
-    p, err := loadPage(title)
+    p, err := views.loadPage(title)
     if err != nil {
-        p = &Page{Title: title}
+        p = &views.Page{Title: title}
     }
     fmt.Println("method:", r.Method)
     if r.Method == "GET" {
@@ -111,9 +112,9 @@ func HouseCreate(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 
 func HouseCreateSuccess(w http.ResponseWriter, r *http.Request, _ mux.Params) {
     title := "success"
-    p, err := loadPage(title)
+    p, err := views.loadPage(title)
     if err != nil {
-        p = &Page{Title: title}
+        p = &views.Page{Title: title}
     }
     t, _ := template.ParseFiles(title + ".html")
     t.Execute(w, p)
@@ -155,8 +156,7 @@ func HouseCreate(w http.ResponseWriter, r*http.Request, _ mux.Params) {
 // Display all haunted houses
 func HouseIndex(w http.ResponseWriter, r *http.Request, _ mux.Params) {
 
-    // See model.go
-    houses = FindAll()
+    houses = models.FindAll()
 
     // Encode Go struct to JSON
     if err := json.NewEncoder(w).Encode(houses); err != nil {
@@ -171,7 +171,7 @@ func HouseById(w http.ResponseWriter, r *http.Request, ps mux.Params) {
 		panic(err)
 	}
 
-	house := FindById(id, houses)
+	house := models.FindById(id)
 
 	if err := json.NewEncoder(w).Encode(house); err != nil {
 		panic(err)
@@ -185,7 +185,7 @@ func HouseByCity(w http.ResponseWriter, r *http.Request, ps mux.Params) {
 
 	city := strings.Title(strings.Replace(ps.ByName("city"), "-", " ", -1))
 
-	houses := FindByCity(city, houses)
+	houses := models.FindByCity(city)
 
 	if err := json.NewEncoder(w).Encode(houses); err != nil {
  		panic(err)
@@ -199,18 +199,9 @@ func HouseByState(w http.ResponseWriter, r *http.Request, ps mux.Params){
 
 	state := strings.ToUpper(ps.ByName("state"))
 
-	houses := FindByState(state)
+	houses := models.FindByState(state)
 
 	if err := json.NewEncoder(w).Encode(houses); err != nil {
  		panic(err)
 	}
 }
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,9 @@
-package main 
+package db
 
-import "time"
+import (
+	"time"
+	"github.com/jochasinga/go-routing/models"
+)
 
 // Populate database with mock data
 func init() {
@@ -51,6 +54,7 @@ func init() {
 	}
 
 	for _, house := range mockhouses {
-		Create(house)
+		// this will have to come from another package
+		models.Create(house)
 	}
 }

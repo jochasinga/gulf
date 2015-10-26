@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"fmt"
+	ct "./controllers"
 
 	mux "github.com/julienschmidt/httprouter"
 )
@@ -14,7 +15,7 @@ func main() {
 	
 	router := mux.New()
 
-	for _, rt := range routes {
+	for _, rt := range ct.routes {
 		router.Handle(rt.Method, rt.Path, rt.Handle)
 	}
 
